@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "454367733905",
+    "project_id": "motox-b4c2d",
+    "storage_bucket": "motox-b4c2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454367733905:android:44782b00b2b8d0fc7ff730",
+        "android_client_info": {
+          "package_name": "com.sena_app.motox1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454367733905-539vna0jqpe6b59mrpgksnmroki59aic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBscf8ewGOLznu189doSi5Vaa1t45Eosls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454367733905-539vna0jqpe6b59mrpgksnmroki59aic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

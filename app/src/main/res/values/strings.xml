@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Motox1</string>
+    <string name="title_activity_drivers_maps">DriversMapsActivity</string>
+    <string name="title_activity_customer_map">CustomerMapActivity</string>
+    <string name="title_activity_drivers_map">DriversMapActivity</string>
+    <string name="title_activity_maps">MapsActivity</string>
+</resources>
