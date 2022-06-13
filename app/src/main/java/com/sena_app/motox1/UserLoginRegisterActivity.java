@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class UserLoginRegisterActivity extends AppCompatActivity {
 
@@ -28,13 +30,17 @@ public class UserLoginRegisterActivity extends AppCompatActivity {
     private EditText userPassword;
     private FirebaseAuth mAuth;
     private ProgressDialog loadingBar;
-
+    private DatabaseReference customerDatabaseRef;
+    private String onlineCustomerID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login_register);
+
         mAuth = FirebaseAuth.getInstance();
+
+
 
         userLoginText = (TextView) findViewById(R.id.userLoginText);
         userLoginBtn = (Button) findViewById(R.id.userLoginBtn);
@@ -105,10 +111,12 @@ public class UserLoginRegisterActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful())
                     {
-                        Toast.makeText(UserLoginRegisterActivity.this, "Validacion exitosa!!", Toast.LENGTH_SHORT).show();
-                        loadingBar.dismiss();
                         Intent driverIntent = new Intent(UserLoginRegisterActivity.this, CustomerMapActivity.class);
                         startActivity(driverIntent);
+
+                        Toast.makeText(UserLoginRegisterActivity.this, "Validacion exitosa!!", Toast.LENGTH_SHORT).show();
+                        loadingBar.dismiss();
+
                     }
                     else
                     {
@@ -132,7 +140,9 @@ public class UserLoginRegisterActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(UserLoginRegisterActivity.this, "Por favor digite una clave...", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+        else
+        {
             loadingBar.setTitle("Registrando usuario");
             loadingBar.setMessage("Por favor espere mientras registramos sus datos.");
             loadingBar.show();
@@ -142,11 +152,20 @@ public class UserLoginRegisterActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(UserLoginRegisterActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-                        loadingBar.dismiss();
+
+                        onlineCustomerID = mAuth.getCurrentUser().getUid();
+                        customerDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users")
+                                .child("Customers").child(onlineCustomerID);
+
+                        customerDatabaseRef.setValue(true);
 
                         Intent driverIntent = new Intent(UserLoginRegisterActivity.this, CustomerMapActivity.class);
                         startActivity(driverIntent);
+
+                        Toast.makeText(UserLoginRegisterActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                        loadingBar.dismiss();
+
+
                     } else {
                         Toast.makeText(UserLoginRegisterActivity.this, "Intente de nuevo, ha ocurrido durante el registro.", Toast.LENGTH_SHORT).show();
                         loadingBar.dismiss();
